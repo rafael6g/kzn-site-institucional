@@ -21,8 +21,8 @@ function FlowNode({
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
-        width: '140px',
-        height: '140px',
+        width: '120px',
+        height: '120px',
         background: 'url(assets/kryzon-mark.png) center/contain no-repeat',
         margin: '0 auto',
         filter: 'drop-shadow(0 0 24px rgba(79,191,192,0.6))',
@@ -30,38 +30,29 @@ function FlowNode({
       }
     }), /*#__PURE__*/React.createElement("div", {
       style: {
-        marginTop: '12px',
+        marginTop: '10px',
         fontFamily: 'Quicksand, sans-serif',
         fontWeight: 700,
-        fontSize: '14px',
+        fontSize: '13px',
         letterSpacing: '0.08em',
         textTransform: 'uppercase',
         color: '#4FBFC0'
       }
     }, "KRYZON \xB7 FLOW"));
   }
-  const isRight = kind === 'output';
   return /*#__PURE__*/React.createElement("div", {
     style: {
       position: 'absolute',
-      // anchor left nodes to left edge, right nodes to right edge — no translate overflow
-      ...(isRight ? {
-        right: '12px',
-        left: 'auto',
-        transform: 'translateY(-50%)'
-      } : {
-        left: '12px',
-        right: 'auto',
-        transform: 'translateY(-50%)'
-      }),
+      left: `${x}%`,
       top: `${y}%`,
+      transform: 'translate(-50%, -50%)',
       padding: '10px 14px',
       background: 'rgba(27,37,64,0.92)',
       border: '1px solid rgba(255,255,255,0.16)',
-      borderRadius: '12px',
+      borderRadius: '10px',
       fontFamily: 'Geist Mono, monospace',
       fontSize: '11px',
-      letterSpacing: '0.07em',
+      letterSpacing: '0.06em',
       textTransform: 'uppercase',
       color: '#F5F1EA',
       whiteSpace: 'nowrap',
@@ -74,49 +65,47 @@ function FlowNode({
     }
   }, /*#__PURE__*/React.createElement("span", {
     style: {
-      width: '7px',
-      height: '7px',
+      width: '6px',
+      height: '6px',
       borderRadius: '50%',
+      flexShrink: 0,
       background: '#4FBFC0',
-      boxShadow: '0 0 8px #4FBFC0',
-      flexShrink: 0
+      boxShadow: '0 0 8px #4FBFC0'
     }
   }), label);
 }
 function FlowDiagram() {
+  // x positions with safe margins so nodes don't clip with overflow:hidden
+  // left nodes at 21%, right nodes at 79%, center at 50%
+  const SX = 21,
+    OX = 79,
+    MX = 50,
+    MY = 50;
   const sources = [{
     label: 'PLANILHAS',
-    y: 18
+    y: 20
   }, {
     label: 'ERP',
-    y: 45
+    y: 50
   }, {
     label: 'CRM',
-    y: 72
+    y: 80
   }];
   const outputs = [{
     label: 'DASHBOARD AO VIVO',
-    y: 18
+    y: 20
   }, {
     label: 'WHATSAPP / EMAIL',
-    y: 45
+    y: 50
   }, {
     label: 'AÇÕES AUTOMÁTICAS',
-    y: 72
+    y: 80
   }];
-
-  // SVG paths start/end near the side edges (25/75 in viewBox space)
-  // matching the visual position of the anchored nodes
-  const srcX = 25;
-  const outX = 75;
-  const midX = 50;
-  const midY = 50;
   return /*#__PURE__*/React.createElement("div", {
     className: "flow-stage",
     style: {
-      height: '460px',
-      width: '100%',
-      overflow: 'visible'
+      height: '420px',
+      width: '100%'
     }
   }, /*#__PURE__*/React.createElement("svg", {
     viewBox: "0 0 100 100",
@@ -125,8 +114,7 @@ function FlowDiagram() {
       position: 'absolute',
       inset: 0,
       width: '100%',
-      height: '100%',
-      overflow: 'visible'
+      height: '100%'
     }
   }, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("linearGradient", {
     id: "flowG",
@@ -135,21 +123,21 @@ function FlowDiagram() {
   }, /*#__PURE__*/React.createElement("stop", {
     offset: "0%",
     stopColor: "#4FBFC0",
-    stopOpacity: "0.1"
+    stopOpacity: "0.08"
   }), /*#__PURE__*/React.createElement("stop", {
     offset: "50%",
     stopColor: "#4FBFC0",
-    stopOpacity: "0.7"
+    stopOpacity: "0.6"
   }), /*#__PURE__*/React.createElement("stop", {
     offset: "100%",
     stopColor: "#4FBFC0",
-    stopOpacity: "0.1"
+    stopOpacity: "0.08"
   }))), sources.map((s, i) => /*#__PURE__*/React.createElement("g", {
     key: `in${i}`
   }, /*#__PURE__*/React.createElement("path", {
-    d: `M ${srcX},${s.y} C ${srcX + 12},${s.y} ${midX - 12},${midY} ${midX},${midY}`,
+    d: `M ${SX},${s.y} C ${SX + 10},${s.y} ${MX - 10},${MY} ${MX},${MY}`,
     stroke: "url(#flowG)",
-    strokeWidth: "0.35",
+    strokeWidth: "0.4",
     fill: "none",
     vectorEffect: "non-scaling-stroke"
   }), /*#__PURE__*/React.createElement("circle", {
@@ -158,13 +146,13 @@ function FlowDiagram() {
   }, /*#__PURE__*/React.createElement("animateMotion", {
     dur: `${2.4 + i * 0.4}s`,
     repeatCount: "indefinite",
-    path: `M ${srcX},${s.y} C ${srcX + 12},${s.y} ${midX - 12},${midY} ${midX},${midY}`
+    path: `M ${SX},${s.y} C ${SX + 10},${s.y} ${MX - 10},${MY} ${MX},${MY}`
   })))), outputs.map((o, i) => /*#__PURE__*/React.createElement("g", {
     key: `out${i}`
   }, /*#__PURE__*/React.createElement("path", {
-    d: `M ${midX},${midY} C ${midX + 12},${midY} ${outX - 12},${o.y} ${outX},${o.y}`,
+    d: `M ${MX},${MY} C ${MX + 10},${MY} ${OX - 10},${o.y} ${OX},${o.y}`,
     stroke: "url(#flowG)",
-    strokeWidth: "0.35",
+    strokeWidth: "0.4",
     fill: "none",
     vectorEffect: "non-scaling-stroke"
   }), /*#__PURE__*/React.createElement("circle", {
@@ -174,43 +162,43 @@ function FlowDiagram() {
     dur: `${2.6 + i * 0.5}s`,
     repeatCount: "indefinite",
     begin: `${0.5 + i * 0.3}s`,
-    path: `M ${midX},${midY} C ${midX + 12},${midY} ${outX - 12},${o.y} ${outX},${o.y}`
+    path: `M ${MX},${MY} C ${MX + 10},${MY} ${OX - 10},${o.y} ${OX},${o.y}`
   }))))), sources.map((s, i) => /*#__PURE__*/React.createElement(FlowNode, {
     key: `s${i}`,
     label: s.label,
-    x: srcX,
+    x: SX,
     y: s.y,
     kind: "source"
   })), /*#__PURE__*/React.createElement(FlowNode, {
     label: "KRYZON Flow",
-    x: 50,
-    y: 50,
+    x: MX,
+    y: MY,
     kind: "core"
   }), outputs.map((o, i) => /*#__PURE__*/React.createElement(FlowNode, {
     key: `o${i}`,
     label: o.label,
-    x: outX,
+    x: OX,
     y: o.y,
     kind: "output"
   })), /*#__PURE__*/React.createElement("div", {
     style: {
       position: 'absolute',
-      top: '16px',
-      left: '16px',
+      top: '12px',
+      left: '14px',
       fontFamily: 'Geist Mono, monospace',
-      fontSize: '10px',
-      color: 'rgba(245,241,234,0.4)',
+      fontSize: '9px',
+      color: 'rgba(245,241,234,0.35)',
       letterSpacing: '0.12em',
       pointerEvents: 'none'
     }
   }, "FONTES DE DADOS"), /*#__PURE__*/React.createElement("div", {
     style: {
       position: 'absolute',
-      top: '16px',
-      right: '16px',
+      top: '12px',
+      right: '14px',
       fontFamily: 'Geist Mono, monospace',
-      fontSize: '10px',
-      color: 'rgba(245,241,234,0.4)',
+      fontSize: '9px',
+      color: 'rgba(245,241,234,0.35)',
       letterSpacing: '0.12em',
       pointerEvents: 'none'
     }
