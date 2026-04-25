@@ -1,0 +1,13 @@
+{
+  "name": "kzn-site-institucional",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "babel tweaks-panel.jsx -o tweaks-panel.js --presets @babel/preset-react && babel app.jsx -o app.js --presets @babel/preset-react && babel components/isometric.jsx -o components/isometric.js --presets @babel/preset-react && babel components/dashboard.jsx -o components/dashboard.js --presets @babel/preset-react && babel components/flow-diagram.jsx -o components/flow-diagram.js --presets @babel/preset-react && babel components/sections.jsx -o components/sections.js --presets @babel/preset-react"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.24.0",
+    "@babel/core": "^7.24.0",
+    "@babel/preset-react": "^7.24.0"
+  }
+}
