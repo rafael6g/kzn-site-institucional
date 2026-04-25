@@ -68,7 +68,7 @@ function FlowSection() {
     <section id="solucoes" className="flow-section">
       <div className="wrap" style={{ height: "600px" }}>
         <div className="section-tag">Como funciona · arquitetura Flow</div>
-        <div className="reveal flow-layout" style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '60px', alignItems: 'center' }}>
+        <div className="reveal flow-layout" style={{ display: 'grid', gridTemplateColumns: 'var(--flow-cols, 1fr 1.2fr)', gap: '60px', alignItems: 'center' }}>
           <div>
             <h2 className="section-title">Da planilha avulsa ao <em>fluxo vivo</em>.</h2>
             <p style={{ color: 'var(--muted)', fontSize: '17px', lineHeight: 1.6 }}>

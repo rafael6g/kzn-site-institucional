@@ -75,7 +75,7 @@ function FlowDiagram() {
 
 
   return (
-    <div className="flow-stage" style={{ height: '460px', width: "538px" }}>
+    <div className="flow-stage" style={{ height: '460px', width: "100%" }}>
       <svg
         viewBox="0 0 100 100" preserveAspectRatio="none"
         style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
